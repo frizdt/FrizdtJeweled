@@ -1,0 +1,114 @@
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background: black;
+}
+body {
+	display: flex;
+	flex-direction: column;
+}
+h1 {
+	align-self: center;
+	margin-bottom: 5vw;
+	background-image: linear-gradient(to bottom left, yellow, red);
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	font-size: 5vw;
+}
+main {
+	display: flex;
+	flex-flow: wrap row;
+	justify-content: center;
+}
+.zoneJeu {
+	width: 600px;
+	height: 600px;
+	background: rgb(130, 5, 134);
+	position: relative;
+}
+.diam {
+	width: 60px;
+	height: 60px;
+	position: absolute;
+	border-radius: 65% 50%;
+
+	transition: left 500ms, top 500ms;
+}
+
+@keyframes animeSelected {
+	50% {
+		background-color: rgb(255, 255, 255);
+	}
+}
+.selected {
+	animation-name: animeSelected;
+	animation-iteration-count: infinite;
+	animation-duration: 1s;
+}
+
+.kill {
+	background: radial-gradient(red 10px, white 30%, black 50%) !important;
+}
+.rouge {
+	border: 1px white groove;
+	background: red;
+}
+.violet {
+	border: 1px white groove;
+	background: violet;
+}
+.bleu {
+	border: 1px white groove;
+	background: blue;
+}
+.jaune {
+	border: 1px white groove;
+	background: yellow;
+}
+.vert {
+	border: 1px white groove;
+	background: green;
+}
+.compte,
+.espaceComun {
+	padding: 1vw;
+	margin-left: 5vw;
+	background: rgb(182, 197, 194);
+}
+.compte {
+	height: 15%;
+}
+.deco {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-end;
+}
+.co {
+	display: none;
+}
+.espaceComun {
+	margin-top: 5vw;
+}
+.optJeu {
+	height: 10vh;
+}
+.grille {
+	display: flex;
+	flex-direction: column;
+}
+
+.scores,
+.optJeu {
+	margin-top: 1vw;
+	border: 1px solid whitesmoke;
+}
