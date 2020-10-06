@@ -5,6 +5,7 @@ class Jeu {
 		this.diam2 = null;
 		this.diamObj;
 		this.grille = 6;
+		this.comptEste = false;
 		document.querySelectorAll(".zoneJeu").forEach((e) => {
 			e.addEventListener("click", (event) => {
 				if (
@@ -23,6 +24,7 @@ class Jeu {
 				if (this.diam1 !== null && this.diam2 !== null) {
 					if (this.animeDiamSelect()) {
 						this.aligner();
+						// e.removeEventListener("click", arguments.callee);
 					} else {
 						this.resetDiam();
 					}
@@ -30,8 +32,8 @@ class Jeu {
 
 				event.target.addEventListener("transitionend", () => {
 					this.diamObj = this.trieLeft(this.diamObj);
-					this.killKill();
-					// this.downAnimation();
+					let testKill = this.killKill();
+					if (testKill) this.downAnimation();
 				});
 				return;
 			});
@@ -222,12 +224,46 @@ class Jeu {
 	}
 
 	killKill() {
+		let haveKill = false;
 		document.querySelectorAll(".kill").forEach((e) => {
 			e.remove();
+			haveKill = true;
 		});
+		return haveKill;
 	}
 
-	downAnimation() {}
+	downAnimation() {
+		let index = 0;
+		console.log(this.diamObj);
+		for (let y = 0; y < this.grille; y++) {
+			for (let x = 0; x < this.grille; x++) {
+				console.log(index);
+				if (this.diamObj[index].classList.contains("kill")) {
+					for (let z = 0; z <= x; z++) {
+						console.log("z = ", z);
+						console.log("index - z = ", index - z);
+						console.log(this.diamObj[index - z].style.top);
+
+						this.diamObj[index - z].style.top =
+							parseInt(this.diamObj[index - z].style.top) + 100 + "px";
+
+						console.log(this.diamObj[index - z].style.top);
+					}
+				}
+				index++;
+			}
+		}
+		// document.querySelector(
+		// 	".zoneJeu"
+		// ).innerHTML += `<div class = 'diam ${this.createDiamaColor()} newDiam'
+		// style='left: ${y * 100 + 20}px; top: ${-20}px'></div>`;
+
+		if (this.comptEste == false) {
+			this.comptEste = true;
+		} else if (this.comptEste == true) {
+			this.comptEste = false;
+		}
+	}
 
 	sleep(time) {
 		return new Promise((resolve) => setTimeout(resolve, time));
