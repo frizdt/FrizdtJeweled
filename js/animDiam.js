@@ -8,6 +8,7 @@ class Jeu {
 		this.comptEste = false;
 		document.querySelectorAll(".zoneJeu").forEach((e) => {
 			e.addEventListener("click", (event) => {
+				console.log("event = ", event);
 				if (
 					this.selectDiam(event) &&
 					(this.diam1 === null || this.diam2 === null)
@@ -29,12 +30,16 @@ class Jeu {
 						this.resetDiam();
 					}
 				}
+				let testKill = true;
 
 				event.target.addEventListener("transitionend", () => {
 					this.diamObj = this.trieLeft(this.diamObj);
-					let testKill = this.killKill();
-					if (testKill) this.downAnimation();
+					testKill = this.killKill();
+					if (testKill) {
+						this.downAnimation();
+					}
 				});
+
 				return;
 			});
 		});
@@ -234,29 +239,60 @@ class Jeu {
 
 	downAnimation() {
 		let index = 0;
-		console.log(this.diamObj);
+
 		for (let y = 0; y < this.grille; y++) {
 			for (let x = 0; x < this.grille; x++) {
-				console.log(index);
 				if (this.diamObj[index].classList.contains("kill")) {
 					for (let z = 0; z <= x; z++) {
-						console.log("z = ", z);
-						console.log("index - z = ", index - z);
-						console.log(this.diamObj[index - z].style.top);
-
 						this.diamObj[index - z].style.top =
 							parseInt(this.diamObj[index - z].style.top) + 100 + "px";
-
-						console.log(this.diamObj[index - z].style.top);
 					}
 				}
 				index++;
 			}
 		}
-		// document.querySelector(
-		// 	".zoneJeu"
-		// ).innerHTML += `<div class = 'diam ${this.createDiamaColor()} newDiam'
-		// style='left: ${y * 100 + 20}px; top: ${-20}px'></div>`;
+		index = 0;
+		this.sleep(500).then(() => {
+			let compterKill = 0;
+			for (let y = 0; y < this.grille; y++) {
+				compterKill = 0;
+				for (let x = 0; x < this.grille; x++) {
+					if (this.diamObj[index].classList.contains("kill")) {
+						compterKill++;
+						document.querySelector(
+							".zoneJeu"
+						).innerHTML += `<div class = 'diam ${this.createDiamaColor()} compt${compterKill} newDiam'
+					style='left: ${y * 100 + 20}px; top: ${-50}px'></div>`;
+					}
+					index++;
+				}
+			}
+
+			this.sleep(50).then(() => {
+				document.querySelectorAll(".newDiam").forEach((e) => {
+					if (e.classList.contains("compt1")) {
+						e.style.top = "20px";
+						e.classList.remove("compt1");
+					} else if (e.classList.contains("compt2")) {
+						e.style.top = "120px";
+						e.classList.remove("compt2");
+					} else if (e.classList.contains("compt3")) {
+						e.style.top = "220px";
+						e.classList.remove("compt3");
+					} else if (e.classList.contains("compt4")) {
+						e.style.top = "320px";
+						e.classList.remove("compt4");
+					} else if (e.classList.contains("compt5")) {
+						e.style.top = "420px";
+						e.classList.remove("compt5");
+					} else if (e.classList.contains("compt6")) {
+						e.style.top = "520px";
+						e.classList.remove("compt6");
+					}
+					e.classList.remove("newDiam");
+				});
+			});
+		});
 
 		if (this.comptEste == false) {
 			this.comptEste = true;
