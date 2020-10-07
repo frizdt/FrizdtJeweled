@@ -13,6 +13,13 @@ body {
 	display: flex;
 	flex-direction: column;
 }
+header {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+	z-index: 1;
+}
 h1 {
 	align-self: center;
 	margin-bottom: 5vw;
