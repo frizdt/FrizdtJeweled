@@ -1,12 +1,16 @@
 class Jeu {
-	constructor(theGrille) {
+	constructor(theGrille = 6) {
 		this.aColor = ["rouge", "vert", "bleu", "jaune", "violet"];
 		this.diam1 = null;
 		this.diam2 = null;
 		this.diamObj;
 		this.grille = theGrille;
+		this.score = 0;
+		this.combo = 0;
+		document.querySelector(".scores .local span").innerHTML = 0;
 		document.querySelectorAll(".zoneJeu").forEach((e) => {
 			e.addEventListener("click", (event) => {
+				this.combo = 0;
 				if (
 					this.selectDiam(event) &&
 					(this.diam1 === null || this.diam2 === null)
@@ -23,7 +27,6 @@ class Jeu {
 				if (this.diam1 !== null && this.diam2 !== null) {
 					if (this.animeDiamSelect()) {
 						this.aligner();
-						// e.removeEventListener("click", arguments.callee);
 					} else {
 						this.resetDiam();
 					}
@@ -34,10 +37,13 @@ class Jeu {
 			let testKill = true;
 
 			e.addEventListener("transitionend", () => {
-				console.log("coucou");
+				let calcScore = document.querySelectorAll(".kill").length;
 				this.diamObj = this.trieLeft(this.diamObj);
 				testKill = this.killKill();
 				if (testKill) {
+					this.combo++;
+					this.score += this.scoring(calcScore);
+					document.querySelector(".scores .local span").innerHTML = this.score;
 					this.downAnimation();
 				}
 			});
@@ -120,11 +126,11 @@ class Jeu {
 		this.addKill([...this.diamObj]);
 		this.addKill([...diamObj2]);
 		if (document.querySelector(".kill") == null) {
-			this.sleep(500).then(() => {
+			this.sleep(50).then(() => {
 				this.animeDiamSelect();
 			});
 		}
-		this.sleep(500).then(() => {
+		this.sleep(50).then(() => {
 			this.resetDiam();
 		});
 		return;
@@ -252,15 +258,15 @@ class Jeu {
 		}
 		index = 0;
 		this.sleep(500).then(() => {
-			let compterKill = 0;
+			let compter = 0;
 			for (let y = 0; y < this.grille; y++) {
-				compterKill = 0;
+				compter = 0;
 				for (let x = 0; x < this.grille; x++) {
 					if (this.diamObj[index].classList.contains("kill")) {
-						compterKill++;
+						compter++;
 						document.querySelector(
 							".zoneJeu"
-						).innerHTML += `<div class = 'diam ${this.createDiamaColor()} compt${compterKill} newDiam'
+						).innerHTML += `<div class = 'diam ${this.createDiamaColor()} compt${compter} newDiam'
 					style='left: ${y * 100 + 20}px; top: ${-50}px'></div>`;
 					}
 					index++;
@@ -295,6 +301,39 @@ class Jeu {
 				this.aligner();
 			});
 		});
+	}
+
+	scoring(calcScore) {
+		switch (calcScore) {
+			case 3:
+				calcScore = 75;
+				break;
+			case 4:
+				calcScore = 150;
+				break;
+			case 5:
+				calcScore = 300;
+				break;
+			case 6:
+				calcScore = 600;
+				break;
+			case 7:
+				calcScore = 1200;
+				break;
+			case 8:
+				calcScore = 2400;
+				break;
+			case 9:
+				calcScore = 4800;
+				break;
+			default:
+				if (calcScore >= 10) {
+					calcScore = 10000;
+				}
+				break;
+		}
+		calcScore = calcScore * this.combo;
+		return calcScore;
 	}
 
 	sleep(time) {
