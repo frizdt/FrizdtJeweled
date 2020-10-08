@@ -1,5 +1,5 @@
 class Jeu {
-	constructor(theGrille) {
+	constructor(theGrille = 6) {
 		this.aColor = ["rouge", "vert", "bleu", "jaune", "violet"];
 		this.diam1 = null;
 		this.diam2 = null;
@@ -34,7 +34,6 @@ class Jeu {
 			let testKill = true;
 
 			e.addEventListener("transitionend", () => {
-				console.log("coucou");
 				this.diamObj = this.trieLeft(this.diamObj);
 				testKill = this.killKill();
 				if (testKill) {
