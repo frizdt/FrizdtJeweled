@@ -1,14 +1,12 @@
 class Jeu {
-	constructor() {
+	constructor(theGrille) {
 		this.aColor = ["rouge", "vert", "bleu", "jaune", "violet"];
 		this.diam1 = null;
 		this.diam2 = null;
 		this.diamObj;
-		this.grille = 6;
-		this.comptEste = false;
+		this.grille = theGrille;
 		document.querySelectorAll(".zoneJeu").forEach((e) => {
 			e.addEventListener("click", (event) => {
-				console.log("event = ", event);
 				if (
 					this.selectDiam(event) &&
 					(this.diam1 === null || this.diam2 === null)
@@ -30,17 +28,18 @@ class Jeu {
 						this.resetDiam();
 					}
 				}
-				let testKill = true;
-
-				event.target.addEventListener("transitionend", () => {
-					this.diamObj = this.trieLeft(this.diamObj);
-					testKill = this.killKill();
-					if (testKill) {
-						this.downAnimation();
-					}
-				});
 
 				return;
+			});
+			let testKill = true;
+
+			e.addEventListener("transitionend", () => {
+				console.log("coucou");
+				this.diamObj = this.trieLeft(this.diamObj);
+				testKill = this.killKill();
+				if (testKill) {
+					this.downAnimation();
+				}
 			});
 		});
 		this.start(this.grille);
@@ -292,13 +291,10 @@ class Jeu {
 					e.classList.remove("newDiam");
 				});
 			});
+			this.sleep(500).then(() => {
+				this.aligner();
+			});
 		});
-
-		if (this.comptEste == false) {
-			this.comptEste = true;
-		} else if (this.comptEste == true) {
-			this.comptEste = false;
-		}
 	}
 
 	sleep(time) {
@@ -306,4 +302,4 @@ class Jeu {
 	}
 }
 
-new Jeu();
+new Jeu(6);
