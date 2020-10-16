@@ -1,5 +1,5 @@
 class Jeu {
-	constructor(theGrille = 6) {
+	constructor(theGrille = 6, coup = 50) {
 		this.aColor = ["rouge", "vert", "bleu", "jaune", "violet"];
 		this.diam1 = null;
 		this.diam2 = null;
@@ -7,7 +7,8 @@ class Jeu {
 		this.grille = theGrille;
 		this.score = 0;
 		this.combo = 0;
-		document.querySelector(".scores .local span").innerHTML = 0;
+		this.nbCoup = coup;
+
 		document.querySelectorAll(".zoneJeu").forEach((e) => {
 			e.addEventListener("click", (event) => {
 				this.combo = 0;
@@ -26,6 +27,8 @@ class Jeu {
 				}
 				if (this.diam1 !== null && this.diam2 !== null) {
 					if (this.animeDiamSelect()) {
+						this.nbCoup--;
+						document.querySelector(".nb-coup span").innerHTML = this.nbCoup;
 						this.aligner();
 					} else {
 						this.resetDiam();
@@ -45,20 +48,34 @@ class Jeu {
 					this.score += this.scoring(calcScore);
 					document.querySelector(".scores .local span").innerHTML = this.score;
 					this.downAnimation();
+				} else if (this.nbCoup == 0) {
+					document.querySelector(".popup").style.display = "flex";
+					document.querySelector(".popup").style.width =
+						this.grille * 100 + "px";
+					document.querySelector(".popup").style.height =
+						this.grille * 100 + "px";
+					document.querySelector(
+						".popup p"
+					).innerHTML = `Votre score est de ${this.score} `;
 				}
 			});
 		});
-		this.start(this.grille);
 	}
 
-	start(nb = 6) {
+	start(nbGrille = 6, coup = 50) {
 		let tabJeu = "";
 		let test = true;
-
+		this.score = 0;
+		document.querySelector(".scores .local span").innerHTML = 0;
+		this.grille = nbGrille;
+		this.nbCoup = coup;
+		document.querySelector(".nb-coup span").innerHTML = this.nbCoup;
+		document.querySelector(".zoneJeu").style.width = nbGrille * 100 + "px";
+		document.querySelector(".zoneJeu").style.height = nbGrille * 100 + "px";
 		while (test) {
 			tabJeu = "";
-			for (let i = 0; i < nb; i++) {
-				for (let x = 0; x < nb; x++) {
+			for (let i = 0; i < nbGrille; i++) {
+				for (let x = 0; x < nbGrille; x++) {
 					tabJeu += `<div class = 'diam ${this.createDiamaColor()}' style='left: ${
 						i * 100 + 20
 					}px; top: ${x * 100 + 20}px'></div>`;
@@ -340,5 +357,3 @@ class Jeu {
 		return new Promise((resolve) => setTimeout(resolve, time));
 	}
 }
-
-new Jeu(6);
