@@ -38,7 +38,13 @@ class Jeu {
 				return;
 			});
 			let testKill = true;
-
+			e.addEventListener("transitionstart", () => {
+				document.querySelector(".clicblock").style.display = "flex";
+				document.querySelector(".clicblock").style.width =
+					this.grille * 100 + "px";
+				document.querySelector(".clicblock").style.height =
+					this.grille * 100 + "px";
+			});
 			e.addEventListener("transitionend", () => {
 				let calcScore = document.querySelectorAll(".kill").length;
 				this.diamObj = this.trieLeft(this.diamObj);
@@ -58,6 +64,7 @@ class Jeu {
 						".popup p"
 					).innerHTML = `Votre score est de ${this.score} `;
 				}
+				document.querySelector(".clicblock").style.display = "none";
 			});
 		});
 	}
@@ -66,6 +73,7 @@ class Jeu {
 		let tabJeu = "";
 		let test = true;
 		this.score = 0;
+		document.querySelector(".clicblock").style.display = "none";
 		document.querySelector(".scores .local span").innerHTML = 0;
 		this.grille = nbGrille;
 		this.nbCoup = coup;

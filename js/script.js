@@ -1,5 +1,5 @@
 let mygame = new Jeu();
-mygame.start(6, 1);
+mygame.start(6);
 
 document.querySelectorAll(".restart").forEach((e) => {
 	e.addEventListener("click", () => {
@@ -11,7 +11,6 @@ document.querySelectorAll(".restart").forEach((e) => {
 				checked = test[i].value;
 			}
 		}
-		console.log(checked);
-		mygame.start(checked, 4);
+		mygame.start(checked);
 	});
 });
