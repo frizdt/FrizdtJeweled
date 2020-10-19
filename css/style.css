@@ -40,6 +40,11 @@ div > span {
 	position: relative;
 	margin: auto;
 }
+.clicblock {
+	position: absolute;
+	display: none;
+	z-index: 10;
+}
 .popup p {
 	text-align: center;
 	font-size: 6vw;
@@ -140,4 +145,10 @@ div > span {
 .optJeu {
 	margin-top: 1vw;
 	border: 1px solid whitesmoke;
+}
+
+button {
+	width: 10vw;
+	height: 3vw;
+	border-radius: 30px;
 }
