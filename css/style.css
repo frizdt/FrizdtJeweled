@@ -1,7 +1,9 @@
+@import url("https://fonts.googleapis.com/css2?family=Sedgwick+Ave+Display&display=swap");
 * {
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
+	font-size: 1vw;
 }
 html,
 body {
@@ -21,6 +23,8 @@ header {
 	z-index: 1;
 }
 h1 {
+	user-select: none;
+	font-family: "Sedgwick Ave Display", cursive;
 	align-self: center;
 	margin-bottom: 5vw;
 	background-image: linear-gradient(to bottom left, yellow, red);
@@ -50,7 +54,9 @@ div > span {
 	font-size: 6vw;
 	text-shadow: black 1px 1px 2px;
 }
+
 .popup {
+	font-family: "Sedgwick Ave Display", cursive;
 	user-select: none;
 	display: flex;
 	align-items: center;
@@ -65,7 +71,7 @@ div > span {
 .zoneJeu {
 	width: 600px;
 	height: 600px;
-	background: rgb(130, 5, 134);
+	background: rgb(88, 0, 90);
 	position: relative;
 }
 .diam {
@@ -92,24 +98,24 @@ div > span {
 	background: radial-gradient(red 10px, white 30%, black 50%) !important;
 }
 .rouge {
-	border: 1px white groove;
-	background: red;
+	background: url("../img/Rubi.png") center;
+	background-size: 60px;
 }
 .violet {
-	border: 1px white groove;
-	background: violet;
+	background: url("../img/Amethist.png") center;
+	background-size: 60px;
 }
 .bleu {
-	border: 1px white groove;
-	background: blue;
+	background: url("../img/Sapphire.png") center;
+	background-size: 60px;
 }
 .jaune {
-	border: 1px white groove;
-	background: yellow;
+	background: url("../img/Citrine.png") center;
+	background-size: 60px;
 }
 .vert {
-	border: 1px white groove;
-	background: green;
+	background: url("../img/Emerald.png") center;
+	background-size: 60px;
 }
 .compte,
 .espaceComun {
@@ -151,4 +157,23 @@ button {
 	width: 10vw;
 	height: 3vw;
 	border-radius: 30px;
+}
+.popup button {
+	width: inherit;
+	margin-bottom: 1vw;
+	font-family: "Sedgwick Ave Display", cursive;
+	align-self: center;
+	padding: 0vw 1vw;
+	height: 3vw;
+	border-radius: 30px;
+	border-color: yellow;
+	box-shadow: #ff0080ed 0px 0px 3vw;
+	text-shadow: #ff0080ed 0px 0px 2vw;
+	background-image: linear-gradient(to bottom left, yellow, #ff0080ed);
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	user-select: none;
+	font-size: 2vw;
 }
