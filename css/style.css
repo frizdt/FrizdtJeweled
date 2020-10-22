@@ -23,16 +23,17 @@ header {
 	z-index: 1;
 }
 h1 {
-	user-select: none;
+	align-self: center;
+	text-shadow: #ff0080 0px 0px 5vw;
 	font-family: "Sedgwick Ave Display", cursive;
 	align-self: center;
-	margin-bottom: 5vw;
-	background-image: linear-gradient(to bottom left, yellow, red);
+	background-image: linear-gradient(to bottom left, yellow 10%, #ff0080ed);
 	-webkit-background-clip: text;
 	-moz-background-clip: text;
 	background-clip: text;
 	color: transparent;
 	font-size: 5vw;
+	user-select: none;
 }
 main {
 	display: flex;
