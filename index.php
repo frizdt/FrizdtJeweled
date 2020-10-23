@@ -11,46 +11,57 @@
     </head>
 
     <body>
-        <h1>FrizdtJeweled</h1>
+        <header>
+            <h1>FrizdtJeweled</h1>
+        </header>
         <main>
-            <div class=" zoneJeu"></div>
+            <div><span class="clicblock"></span>
+                <span class="popup">
+                    <p></p>
+                    <button class="restart">Recommencer</button>
+                    <button class="save">Save Score</button>
+                </span>
+                <div class="zoneJeu"></div>
+            </div>
+
             <div class="side">
                 <div class="compte">
                     <div class="deco">
-                        <p>Pseudo: <input type="text" name="log" id="log"></p>
-                        <p>Mot de passe: <input type="password" name="mdp" id="mdp"></p>
-                        <a href="#">Nouveau compte.</a>
+                        <p>Pseudo: <input type="text" name="log" id="log" /></p>
+                        <p>Mot de passe: <input type="password" name="mdp" id="mdp" /></p>
+                        <a href="./inscription.php" target="_blank">Nouveau compte.</a>
                     </div>
                     <div class="co">
                         <p>Bienvenu a toi jeune <span></span></p>
                     </div>
                 </div>
                 <div class="espaceComun">
+                    <div class="nb-coup">Nombre de coup restant: <span></span></div>
                     <div class="scores">
-                        <div class="local">Votre Score Local: <span></span> </div>
-                        <div class="mondiale">Votre Score Mondial: <span></span>
-                        </div>
+                        <div class="local">Votre Score Local: <span></span></div>
+                        <div class="mondiale">Votre Score Mondial: <span></span></div>
                         <div class="select"></div>
-
                     </div>
                     <div class="optJeu">
-                        <button>Recommencer</button>
+                        <button class="restart">Recommencer</button>
                         <div class="grille">
-                            <p><label for="6x6">6x6 </label><input type="radio" name="6x6" id="6x6" checked></p>
-                            <p><label for="8x8">8x8 </label><input type="radio" name="8x8" id="8x8">
+                            <p>
+                                <label for="6x6">6x6 </label><input type="radio" name="grille" id="6x6" value="6"
+                                    checked />
                             </p>
-                            <p><label for="10x10">10x10</label><input type="radio" name="10x10" id="10x10">
+                            <p>
+                                <label for="8x8">8x8 </label><input type="radio" name="grille" id="8x8" value="8" />
                             </p>
                         </div>
                         <p>aide</p>
                     </div>
                     <div class="optGlobal">
-                        <button></button>
+
                     </div>
                 </div>
             </div>
-            <!-- <script src="./js/test_animDown.js"></script> -->
             <script src="./js/animDiam.js"></script>
+            <script src="./js/script.js"></script>
         </main>
     </body>
 
