@@ -1,8 +1,8 @@
 <?php class Database{
-        private static $dbName = 'frizdtjeweled';
-        private static $dbHost = 'localhost';
-        private static $dbUsername = 'root';
-        private static $dbUserPassword = '';
+        private static $dbName = 'yourDBName';
+        private static $dbHost = 'your host';
+        private static $dbUsername = 'your login phpmyadmin or other';
+        private static $dbUserPassword = 'your pass word';
         private static $cont = null;
         public function __construct()
         {
