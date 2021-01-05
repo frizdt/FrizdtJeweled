@@ -1,5 +1,5 @@
 let mygame = new Jeu();
-mygame.start(6);
+mygame.start(6, 3);
 
 document.querySelectorAll(".restart").forEach((e) => {
 	e.addEventListener("click", () => {

@@ -27,8 +27,6 @@ class Jeu {
 				}
 				if (this.diam1 !== null && this.diam2 !== null) {
 					if (this.animeDiamSelect()) {
-						this.nbCoup--;
-						document.querySelector(".nb-coup span").innerHTML = this.nbCoup;
 						this.aligner();
 					} else {
 						this.resetDiam();
@@ -44,13 +42,25 @@ class Jeu {
 					this.grille * 100 + "px";
 				document.querySelector(".clicblock").style.height =
 					this.grille * 100 + "px";
+					this.sleep(50).then( () => {
+						document.querySelector(".clicblock").style.display = "flex";
+						document.querySelector(".clicblock").style.width =
+							this.grille * 100 + "px";
+						document.querySelector(".clicblock").style.height =
+							this.grille * 100 + "px";
+					}) ;
 			});
 			e.addEventListener("transitionend", () => {
 				let calcScore = document.querySelectorAll(".kill").length;
 				this.diamObj = this.trieLeft(this.diamObj);
 				testKill = this.killKill();
+
 				if (testKill) {
 					this.combo++;
+					if (this.combo == 1) {
+						this.nbCoup--;
+						document.querySelector(".nb-coup span").innerHTML = this.nbCoup;
+					}
 					this.score += this.scoring(calcScore);
 					document.querySelector(".scores .local span").innerHTML = this.score;
 					this.downAnimation();
@@ -61,10 +71,15 @@ class Jeu {
 					document.querySelector(".popup").style.height =
 						this.grille * 100 + "px";
 					document.querySelector(
-						".popup p"
-					).innerHTML = `Votre score est de ${this.score} `;
+						".finalscore"
+					).value = `${this.score} `;
+					document.querySelector(
+						".finalgrille"
+					).value = `${this.grille} `;
 				}
-				document.querySelector(".clicblock").style.display = "none";
+				this.sleep(50).then( () => {
+					document.querySelector(".clicblock").style.display = "none";
+				});
 			});
 		});
 	}
@@ -161,7 +176,7 @@ class Jeu {
 		return;
 	}
 	trieLeft(diamObjLeft) {
-		let wtfBro = [];
+		let tableTrie = [];
 		let test = [];
 		diamObjLeft.sort(function (a, b) {
 			if (parseInt(a.style.left) < parseInt(b.style.left)) {
@@ -187,14 +202,14 @@ class Jeu {
 			});
 
 			for (let y = 0; y < this.grille; y++) {
-				wtfBro.push(test[y]);
+				tableTrie.push(test[y]);
 			}
 		}
-		return [...wtfBro];
+		return [...tableTrie];
 	}
 
 	trieTop(diamObjTop) {
-		let wtfBro = [];
+		let tableTrie = [];
 		let test = [];
 		diamObjTop.sort(function (a, b) {
 			if (parseInt(a.style.top) < parseInt(b.style.top)) {
@@ -220,16 +235,16 @@ class Jeu {
 			});
 
 			for (let y = 0; y < this.grille; y++) {
-				wtfBro.push(test[y]);
+				tableTrie.push(test[y]);
 			}
 		}
-		return [...wtfBro];
+		return [...tableTrie];
 	}
 
 	addKill(diamObjKill) {
-		let test1;
-		let test2;
-		let test3;
+		let testDiam1;
+		let testDiam2;
+		let testDiam3;
 		for (let i = 0; i < this.grille * this.grille; i++) {
 			if (
 				diamObjKill[i + 1] == undefined ||
@@ -238,18 +253,18 @@ class Jeu {
 				(i + 1) % this.grille == 0
 			) {
 			} else {
-				test1 = diamObjKill[i].className;
-				test2 = diamObjKill[i - 1].className;
-				test3 = diamObjKill[i + 1].className;
+				testDiam1 = diamObjKill[i].className;
+				testDiam2 = diamObjKill[i - 1].className;
+				testDiam3 = diamObjKill[i + 1].className;
 
-				test1 = test1.split(" kill").join("");
-				test1 = test1.split(" selected").join("");
-				test2 = test2.split(" kill").join("");
-				test2 = test2.split(" selected").join("");
-				test3 = test3.split(" kill").join("");
-				test3 = test3.split(" selected").join("");
+				testDiam1 = testDiam1.split(" kill").join("");
+				testDiam1 = testDiam1.split(" selected").join("");
+				testDiam2 = testDiam2.split(" kill").join("");
+				testDiam2 = testDiam2.split(" selected").join("");
+				testDiam3 = testDiam3.split(" kill").join("");
+				testDiam3 = testDiam3.split(" selected").join("");
 
-				if (test1 == test2 && test1 == test3) {
+				if (testDiam1 == testDiam2 && testDiam1 == testDiam3) {
 					diamObjKill[i - 1].className += " kill";
 					diamObjKill[i].className += " kill";
 					diamObjKill[i + 1].className += " kill";
@@ -359,6 +374,10 @@ class Jeu {
 		}
 		calcScore = calcScore * this.combo;
 		return calcScore;
+	}
+
+	get getScore() {
+		return this.score;
 	}
 
 	sleep(time) {
